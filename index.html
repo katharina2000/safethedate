@@ -32,7 +32,7 @@ html, body {
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
   position: relative;
   overflow: hidden;
-  color: #d0f0ff; /* helles Babyblau */
+  color: #ffffff; /* Schriftfarbe Weiß */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -60,7 +60,7 @@ html, body {
 .save, .the, .date, .names, .divider, .footer, .countdown {
   position: relative;
   z-index: 1;
-  text-shadow: 0 0 8px rgba(208,240,255,0.8); /* sanfter Glow in Babyblau */
+  text-shadow: 0 0 8px rgba(255,255,255,0.8); /* sanfter Glow in Weiß */
 }
 
 .save { font-size: 8vw; font-weight: 400; margin-top: 0; }
@@ -71,14 +71,14 @@ html, body {
   font-size: 5vw;
   margin: 4vw 0;
   display: inline-block;
-  border-right: .15em solid #d0f0ff; /* Cursor in Babyblau */
+  border-right: .15em solid #ffffff; /* Cursor in Weiß */
   white-space: nowrap;
   overflow: hidden;
   animation: blinkCursor 1s step-end infinite;
 }
 
 @keyframes blinkCursor {
-  0%, 50% { border-color: #d0f0ff; }
+  0%, 50% { border-color: #ffffff; }
   51%, 100% { border-color: transparent; }
 }
 
@@ -114,7 +114,7 @@ html, body {
 
 .number:hover {
   transform: scale(1.2) rotate(-5deg);
-  text-shadow: 0 0 18px rgba(208,240,255,0.9);
+  text-shadow: 0 0 18px rgba(255,255,255,0.9);
 }
 
 /* Countdown Styles */
@@ -127,21 +127,21 @@ html, body {
 }
 
 .countdown-item {
-  background: rgba(208,240,255,0.2);
-  border: 1px solid #d0f0ff;
+  background: rgba(255,255,255,0.2);
+  border: 1px solid #ffffff;
   border-radius: 10px;
   padding: 0.7vw 1.2vw;
   min-width: 50px;
   font-size: 4vw;
   font-family: 'Dancing Script', cursive;
-  color: #d0f0ff;
+  color: #ffffff;
 }
 
 .countdown-label {
   font-size: 2vw;
   display: block;
   margin-top: 0.3vw;
-  color: #d0f0ff;
+  color: #ffffff;
 }
 
 .footer { font-size: 4vw; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 6vw; }
