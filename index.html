@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Save the Date</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@500&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #fdfdfd;
+      font-family: 'Playfair Display', serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      width: 90%;
+      max-width: 420px;
+      padding: 5% 5%;
+      text-align: center;
+      border-radius: 12px;
+
+      background-image: url('unserbild.jpg');
+      background-repeat: no-repeat;
+      background-position: top center;
+      background-size: cover;
+
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1.5s ease forwards;
+      color: #fff;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.3);
+      z-index: 0;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .save, .the, .date, .names, .divider, .footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    .save { font-size: 6vw; font-weight: 400; margin-top: 20vw; }
+    .the { font-family: 'Dancing Script', cursive; font-size: 4vw; margin: -1vw 0; }
+    .date { font-size: 6vw; font-weight: 400; margin-bottom: 4vw; }
+    .names {
+      font-family: 'Dancing Script', cursive;
+      font-size: 4vw;
+      margin: 4vw 0;
+      display: inline-block;
+      border-right: .15em solid #fff;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .divider {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 4vw 0;
+      font-size: 3vw;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+
+    .divider div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .number {
+      font-size: 8vw;
+      font-weight: 700;
+      margin: 0 1vw;
+      transition: transform 0.3s ease;
+    }
+
+    .number:hover {
+      transform: scale(1.2) rotate(-5deg); 
+    }
+
+    .footer { font-size: 3vw; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 6vw; }
+
+    @media (max-width: 320px) {
+      .save { font-size: 7vw; margin-top: 25vw; }
+      .date { font-size: 7vw; }
+      .number { font-size: 10vw; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="save">save</div>
+    <div class="the">the</div>
+    <div class="date">date</div>
+    <div class="names" id="typed"></div>
+
+    <div class="divider">
+      <div>Donnerstag</div>
+      <div>
+        <span class="number">27</span><br>
+        <span>August 2026</span>
+      </div>
+    </div>
+
+    <div class="footer">Die offizielle Einladung folgt</div>
+  </div>
+
+  <script>
+    // Typing-Effekt ohne riskante Konsoleingaben
+    document.addEventListener("DOMContentLoaded", function() {
+      const text = "Katharina & Stefan";
+      const typed = document.getElementById("typed");
+      let i = 0;
+
+      function typeWriter() {
+        if (i < text.length) {
+          typed.textContent += text.charAt(i);
+          i++;
+          setTimeout(typeWriter, 100);
+        } else {
+          typed.style.borderRight = 'none';
+        }
+      }
+
+      typeWriter();
+    });
+  </script>
+</body>
+</html>
