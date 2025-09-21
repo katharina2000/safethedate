@@ -105,17 +105,41 @@ html, body {
   100% { transform: translateY(-6px); }
 }
 
+/* Zahl mit Hover-Funkel- und Bounce-Effekt */
 .number {
   font-size: 10vw;
   font-weight: 700;
   margin: 0 1vw;
   transition: transform 0.3s ease, text-shadow 0.3s ease;
   cursor: pointer;
+  position: relative;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-12px); }
+  60% { transform: translateY(-6px); }
+}
+
+.number::after {
+  content: "✨"; 
+  position: absolute;
+  top: -1.5em;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .number:hover {
   transform: scale(1.2) rotate(-5deg);
   text-shadow: 0 0 18px rgba(255,255,255,0.9);
+}
+
+.number:hover::after {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
 }
 
 /* Countdown Styles */
@@ -165,12 +189,14 @@ html, body {
   max-width:300px;
 }
 #easterEgg input {
-  width:100%;
-  padding:5px;
+  width: 100%;
+  padding: 5px;
+  font-size: 16px; /* verhindert das Reinzommen auf mobilen Geräten */
 }
 #easterEgg button {
-  margin-top:10px;
-  padding:6px 12px;
+  margin-top: 10px;
+  padding: 6px 12px;
+  font-size: 16px; /* passt gut zu Input */
 }
 #result {
   margin-top:10px;
@@ -263,7 +289,7 @@ document.addEventListener("DOMContentLoaded", function() {
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // Easter Egg Logik: 1 Klick auf Zahl öffnet Rätsel
+  // Easter Egg Logik: Klick auf Zahl öffnet Rätsel
   const dateNumber = document.querySelector('.number');
   dateNumber.addEventListener('click', () => {
     document.getElementById('easterEgg').style.display='flex';
@@ -271,10 +297,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
   document.getElementById('checkAnswer').addEventListener('click', () => {
     const answer = document.getElementById('answer').value.trim().toLowerCase();
-    // richtige Antworten:
     if(answer === 'norwegen' || answer === 'tromso' || answer === 'tromsø') {
       document.getElementById('result').textContent = 'Richtig! 🎉';
-      // Bild im Overlay einblenden
       document.getElementById('secretImage').style.display='block';
     } else {
       document.getElementById('result').textContent = 'Leider falsch, probier es nochmal :)';
