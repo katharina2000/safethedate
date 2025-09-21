@@ -206,6 +206,24 @@ html, body {
   border-radius:8px;
 }
 
+#calendarBtn {
+  display:inline-block;
+  background:#ffffff;
+  color:#333;
+  padding:0.8em 1.5em;
+  border-radius:8px;
+  font-family:'Dancing Script', cursive;
+  font-size:4vw;
+  text-decoration:none;
+  margin-top:3vw;
+  transition: transform 0.2s ease;
+  cursor:pointer;
+}
+
+#calendarBtn:hover {
+  transform: scale(1.05);
+}
+
 @media (max-width: 400px) {
   .countdown-item { font-size: 6vw; padding: 1vw; }
   .countdown-label { font-size: 3vw; }
@@ -232,19 +250,7 @@ html, body {
   <div class="countdown" id="countdown"></div>
 
   <!-- Kalender Button -->
-  <div style="margin-top: 3vw;">
-    <a id="calendarBtn" href="#" download="SaveTheDate.ics" style="
-      display:inline-block;
-      background:#ffffff;
-      color:#333;
-      padding:0.8em 1.5em;
-      border-radius:8px;
-      font-family:'Dancing Script', cursive;
-      font-size:4vw;
-      text-decoration:none;
-      transition: transform 0.2s ease;
-    ">Zum Kalender hinzufügen</a>
-  </div>
+  <a id="calendarBtn">Zum Kalender hinzufügen</a>
 
   <div class="footer">Die offizielle Einladung folgt</div>
 </div>
@@ -271,7 +277,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (i < text.length) {
       typed.textContent += text.charAt(i);
       i++;
-      setTimeout(typeWriter, Math.random() * 100 + 100); // menschliches Tippen
+      setTimeout(typeWriter, Math.random() * 100 + 100);
     } else {
       typed.style.borderRight = 'none';
     }
@@ -303,7 +309,6 @@ document.addEventListener("DOMContentLoaded", function() {
       <div class="countdown-item">${seconds}<span class="countdown-label">s</span></div>
     `;
   }
-
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
@@ -312,7 +317,6 @@ document.addEventListener("DOMContentLoaded", function() {
   dateNumber.addEventListener('click', () => {
     document.getElementById('easterEgg').style.display='flex';
   });
-
   document.getElementById('checkAnswer').addEventListener('click', () => {
     const answer = document.getElementById('answer').value.trim().toLowerCase();
     const normalizedAnswer = answer.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -325,37 +329,47 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
-  // Kalender-ICS erstellen
+  // Kalender Button
   const calendarBtn = document.getElementById('calendarBtn');
-  const eventTitle = "Hochzeit: Katharina & Stefan";
-  const eventDescription = "Wir freuen uns auf dich :)";
-  const eventLocation = "Villa Schützenhof- Niederneuendorfer Allee 12-16, 13587 Berlin-Spandau";
-  const startDate = new Date("August 27, 2026 15:00:00");
-  const endDate = new Date("August 27, 2026 00:00:00");
+  calendarBtn.addEventListener('click', function(e){
+    e.preventDefault();
 
-  function formatDateICS(date) {
-    return date.toISOString().replace(/-|:|\.\d+/g, '');
-  }
+    const startDate = new Date("August 27, 2026 15:00:00");
+    const endDate   = new Date("August 27, 2026 18:00:00"); // nach Startzeit
+    const title = "Hochzeit: Katharina & Stefan";
+    const description = "Wir freuen uns auf dich :)";
+    const location = "Villa Schützenhof- Niederneuendorfer Allee 12-16, 13587 Berlin-Spandau";
 
-  const icsContent = `
+    function formatICS(date) {
+      return date.toISOString().replace(/-|:|\.\d+/g,'');
+    }
+
+    const icsContent = `
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Save the Date//EN
 BEGIN:VEVENT
 UID:${Date.now()}@savethedate.com
-DTSTAMP:${formatDateICS(new Date())}Z
-DTSTART:${formatDateICS(startDate)}Z
-DTEND:${formatDateICS(endDate)}Z
-SUMMARY:${eventTitle}
-DESCRIPTION:${eventDescription}
-LOCATION:${eventLocation}
+DTSTAMP:${formatICS(new Date())}Z
+DTSTART:${formatICS(startDate)}Z
+DTEND:${formatICS(endDate)}Z
+SUMMARY:${title}
+DESCRIPTION:${description}
+LOCATION:${location}
 END:VEVENT
 END:VCALENDAR
 `.trim();
 
-  const blob = new Blob([icsContent], { type: 'text/calendar' });
-  calendarBtn.href = URL.createObjectURL(blob);
+    const blob = new Blob([icsContent], { type: 'text/calendar' });
+    const url = URL.createObjectURL(blob);
 
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = "SaveTheDate.ics";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  });
 });
 </script>
 </body>
