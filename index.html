@@ -25,7 +25,7 @@ html, body {
   padding: 6%;
   text-align: center;
   border-radius: 12px;
-  background-image: url('unserbild.jpg');
+  background-image: url('IMG_7783.jpg'); /* Standardbild */
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
@@ -147,15 +147,6 @@ html, body {
 
 .footer { font-size: 4vw; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 6vw; }
 
-@media (max-width: 320px) {
-  .save { font-size: 9vw; }
-  .date { font-size: 9vw; }
-  .number { font-size: 12vw; }
-  .card { min-height: 85vh; }
-  .countdown-item { font-size: 5vw; min-width: 40px; }
-  .countdown-label { font-size: 3vw; }
-}
-
 /* Easter Egg Overlay */
 #easterEgg {
   display:none;
@@ -185,10 +176,16 @@ html, body {
   margin-top:10px;
   font-size:0.9em;
 }
+#secretImage {
+  display:none;
+  margin-top:10px;
+  max-width:100%;
+  border-radius:8px;
+}
 </style>
 </head>
 <body>
-<div class="card">
+<div class="card" id="card">
   <div class="save">save</div>
   <div class="the">the</div>
   <div class="date">date</div>
@@ -216,6 +213,7 @@ html, body {
     <input id="answer" type="text" placeholder="Antwort eingeben">
     <button id="checkAnswer">Prüfen</button>
     <div id="result"></div>
+    <img id="secretImage" src="unserbild.jpg" alt="Unser Bild">
   </div>
 </div>
 
@@ -275,9 +273,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const answer = document.getElementById('answer').value.trim().toLowerCase();
     // richtige Antworten:
     if(answer === 'norwegen' || answer === 'tromso' || answer === 'tromsø') {
-      document.getElementById('result').textContent = 'Richtig! Ort der Feier: Villa Schützenhof in Spandau ';
+      document.getElementById('result').textContent = 'Richtig! 🎉';
+      // Bild im Overlay einblenden
+      document.getElementById('secretImage').style.display='block';
     } else {
       document.getElementById('result').textContent = 'Leider falsch, probier es nochmal :)';
+      document.getElementById('secretImage').style.display='none';
     }
   });
 });
