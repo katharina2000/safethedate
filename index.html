@@ -159,18 +159,19 @@ html, body {
   border-radius: 10px;
   padding: 0.7vw 1.2vw;
   min-width: 50px;
+  font-size: 8vw;
   font-family: 'Dancing Script', cursive;
   color: #ffffff;
 }
 
 .countdown-label {
-  font-size: 2.5vw;
+  font-size: 5vw;
   display: block;
   margin-top: 0.3vw;
   color: #ffffff;
 }
 
-.footer { font-size: 5vw; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 6vw; }
+.footer { font-size: 2.5vw; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 6vw; }
 
 /* Easter Egg Overlay */
 #easterEgg {
@@ -263,7 +264,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Countdown
   const countdownEl = document.getElementById('countdown');
-  const eventDate = new Date("August 27, 2026 00:00:00").getTime();
+  const eventDate = new Date("August 27, 2026 15:00:00").getTime();
 
   function updateCountdown() {
     const now = new Date().getTime();
