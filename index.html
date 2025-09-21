@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Save the Date</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@500&display=swap');
@@ -55,18 +55,18 @@ html, body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.save, .the, .date, .names, .divider, .footer, .countdown {
+.save, .the, .date, .names, .divider, .footer, .countdown, .calendar-button {
   position: relative;
   z-index: 1;
   text-shadow: 0 0 8px rgba(255,255,255,0.8);
 }
 
-.save { font-size: clamp(24px, 12vw, 80px); font-weight: 400; margin-top: 0; }
-.the { font-family: 'Dancing Script', cursive; font-size: clamp(18px, 7vw, 50px); margin: -1vw 0; }
-.date { font-size: clamp(24px, 12vw, 80px); font-weight: 400; margin-bottom: 4vw; }
+.save { font-size: clamp(24px,12vw,80px); font-weight: 400; margin-top: 0; }
+.the { font-family: 'Dancing Script', cursive; font-size: clamp(18px,7vw,50px); margin: -1vw 0; }
+.date { font-size: clamp(24px,12vw,80px); font-weight: 400; margin-bottom: 4vw; }
 .names {
   font-family: 'Dancing Script', cursive;
-  font-size: clamp(24px, 12vw, 80px);
+  font-size: clamp(24px,12vw,80px);
   margin: 4vw 0;
   display: inline-block;
   border-right: .15em solid #ffffff;
@@ -107,15 +107,15 @@ html, body {
   font-size: 20vw;
   font-weight: 700;
   margin: 0 1vw;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
   cursor: pointer;
   position: relative;
   animation: bounce 2s infinite;
   text-shadow: 0 0 10px rgba(255,255,255,0.7);
-  transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  0%,20%,50%,80%,100% { transform: translateY(0); }
   40% { transform: translateY(-12px); }
   60% { transform: translateY(-6px); }
 }
@@ -167,7 +167,29 @@ html, body {
   color: #ffffff;
 }
 
-.footer { font-size: 4vw; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 6vw; }
+.footer { font-size: 4vw; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 3vw; }
+
+.calendar-button {
+  padding: 1.2em 2em;
+  font-size: 5vw;
+  font-family: 'Dancing Script', cursive;
+  color: #ffffff;
+  background: rgba(255,255,255,0.2);
+  border: 1px solid #ffffff;
+  border-radius: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: 3vw;
+  text-shadow: 0 0 8px rgba(255,255,255,0.8);
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.calendar-button:hover {
+  transform: scale(1.05);
+  background: rgba(255,255,255,0.35);
+  box-shadow: 0 4px 12px rgba(255,255,255,0.6);
+}
+
 
 #easterEgg {
   display:none;
@@ -195,43 +217,13 @@ html, body {
   padding:6px 12px;
   font-size:16px;
 }
-#result {
-  margin-top:10px;
-  font-size:0.9em;
-}
-#secretImage {
-  display:none;
-  margin-top:10px;
-  max-width:100%;
-  border-radius:8px;
-}
+#result { margin-top:10px; font-size:0.9em; }
+#secretImage { display:none; margin-top:10px; max-width:100%; border-radius:8px; }
 
-#calendarBtn {
-  display:inline-block;
-  background:#ffffff;
-  color:#333;
-  padding:0.8em 1.5em;
-  border-radius:8px;
-  font-family:'Dancing Script', cursive;
-  font-size:4vw;
-  text-decoration:none;
-  margin-top:3vw;
-  transition: transform 0.2s ease;
-  cursor:pointer;
-}
-
-#calendarBtn:hover {
-  transform: scale(1.05);
-}
-
-@media (max-width: 400px) {
-  .countdown-item { font-size: 6vw; padding: 1vw; }
-  .countdown-label { font-size: 3vw; }
-  #calendarBtn { font-size: 4vw; padding: 0.5em 1em; }
-}
 </style>
 </head>
 <body>
+
 <div class="card" id="card">
   <div class="save">save</div>
   <div class="the">the</div>
@@ -246,11 +238,10 @@ html, body {
     </div>
   </div>
 
-  <!-- Countdown -->
   <div class="countdown" id="countdown"></div>
 
   <!-- Kalender Button -->
-  <a id="calendarBtn">Zum Kalender hinzufügen</a>
+  <a id="calendarBtn" class="calendar-button" href="#" download="Hochzeit_Katharina_Stefan.ics">Zum Kalender hinzufügen</a>
 
   <div class="footer">Die offizielle Einladung folgt</div>
 </div>
@@ -277,7 +268,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (i < text.length) {
       typed.textContent += text.charAt(i);
       i++;
-      setTimeout(typeWriter, Math.random() * 100 + 100);
+      setTimeout(typeWriter, 150 + Math.random()*100);
     } else {
       typed.style.borderRight = 'none';
     }
@@ -309,6 +300,7 @@ document.addEventListener("DOMContentLoaded", function() {
       <div class="countdown-item">${seconds}<span class="countdown-label">s</span></div>
     `;
   }
+
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
@@ -317,10 +309,11 @@ document.addEventListener("DOMContentLoaded", function() {
   dateNumber.addEventListener('click', () => {
     document.getElementById('easterEgg').style.display='flex';
   });
+
   document.getElementById('checkAnswer').addEventListener('click', () => {
     const answer = document.getElementById('answer').value.trim().toLowerCase();
     const normalizedAnswer = answer.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    if(["norwegen","tromso","tromso"].includes(normalizedAnswer)) {
+    if(["norwegen","tromso","tromsø"].includes(normalizedAnswer)) {
       document.getElementById('result').textContent = 'Richtig! 🎉';
       document.getElementById('secretImage').style.display='block';
     } else {
@@ -329,48 +322,29 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
-  // Kalender Button
+  // Kalender ICS Datei erstellen
   const calendarBtn = document.getElementById('calendarBtn');
-  calendarBtn.addEventListener('click', function(e){
-    e.preventDefault();
-
-    const startDate = new Date("August 27, 2026 15:00:00");
-    const endDate   = new Date("August 27, 2026 18:00:00"); // nach Startzeit
-    const title = "Hochzeit: Katharina & Stefan";
-    const description = "Wir freuen uns auf dich :)";
-    const location = "Villa Schützenhof- Niederneuendorfer Allee 12-16, 13587 Berlin-Spandau";
-
-    function formatICS(date) {
-      return date.toISOString().replace(/-|:|\.\d+/g,'');
-    }
-
+  calendarBtn.addEventListener('click', () => {
     const icsContent = `
 BEGIN:VCALENDAR
 VERSION:2.0
 BEGIN:VEVENT
-UID:${Date.now()}@savethedate.com
-DTSTAMP:${formatICS(new Date())}Z
-DTSTART:${formatICS(startDate)}Z
-DTEND:${formatICS(endDate)}Z
-SUMMARY:${title}
-DESCRIPTION:${description}
-LOCATION:${location}
+SUMMARY:Hochzeit- Katharina & Stefan
+DTSTART:20260827T150000Z
+DTEND:20260827T000000Z
+DESCRIPTION:Wir freuen uns auf dich:)
+LOCATION: Villa Schützenhof- Niederneuendorfer Allee 12, 13587 Berlin
 END:VEVENT
 END:VCALENDAR
 `.trim();
 
-    const blob = new Blob([icsContent], { type: 'text/calendar' });
+    const blob = new Blob([icsContent], {type: 'text/calendar;charset=utf-8'});
     const url = URL.createObjectURL(blob);
-
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = "SaveTheDate.ics";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    calendarBtn.href = url;
   });
+
 });
 </script>
+
 </body>
 </html>
