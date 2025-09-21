@@ -241,7 +241,7 @@ html, body {
   <div class="countdown" id="countdown"></div>
 
   <!-- Kalender Button -->
-  <a id="calendarBtn" class="calendar-button" href="#" download="Hochzeit_Katharina_Stefan.ics">Zum Kalender hinzufügen</a>
+  <a id="calendarBtn" class="calendar-button" href="Hochzeit_Katharina_Stefan.ics" target="_blank">Zum Kalender hinzufügen</a>
 
   <div class="footer">Die offizielle Einladung folgt</div>
 </div>
@@ -321,28 +321,6 @@ document.addEventListener("DOMContentLoaded", function() {
       document.getElementById('secretImage').style.display='none';
     }
   });
-
-  // Kalender ICS Datei erstellen
-  const calendarBtn = document.getElementById('calendarBtn');
-  calendarBtn.addEventListener('click', () => {
-    const icsContent = `
-BEGIN:VCALENDAR
-VERSION:2.0
-BEGIN:VEVENT
-SUMMARY:Hochzeit- Katharina & Stefan
-DTSTART:20260827T150000Z
-DTEND:20260827T000000Z
-DESCRIPTION:Wir freuen uns auf dich:)
-LOCATION: Villa Schützenhof- Niederneuendorfer Allee 12, 13587 Berlin
-END:VEVENT
-END:VCALENDAR
-`.trim();
-
-    const blob = new Blob([icsContent], {type: 'text/calendar;charset=utf-8'});
-    const url = URL.createObjectURL(blob);
-    calendarBtn.href = url;
-  });
-
 });
 </script>
 
